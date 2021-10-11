@@ -5,20 +5,7 @@ const inquirer = require('inquirer');
 
 // TODO: Create an array of questions for user input
 const promptUser = () => {
-    return inquirer.prompt([    
-        {
-            type: 'input',
-            name: 'name',
-            message: 'What is your name? (Required)',
-            validate: nameInput => {
-                if (nameInput) {
-                return true;
-                } else {
-                console.log('Please enter your name!');
-                return false;
-                }
-            }
-        },
+    return inquirer.prompt([
         {
             type: 'input',
             name: 'username',
@@ -34,7 +21,7 @@ const promptUser = () => {
         },
         {
             type: 'input',
-            name: 'github',
+            name: 'githuburl',
             message: 'Enter the url to your Github profile.',
             validate: githubInput => {
                 if (githubInput) {
@@ -145,31 +132,17 @@ const promptUser = () => {
             name: 'license',
             message: 'Please choose the license that the application is covered under.',
             choices: ['MIT', 'GPL', 'Apache', 'Ms-PL', 'BSD', 'Other']
+        },
+        {
+            type: 'input',
+            name: 'tests',
+            message: 'Please enter a description of any tests for your application and descriptions on how to run them.',
         }
     ]);
 };
 
-// const promptProject = userData => {
-//     if (!userData.project) {
-//         userData.project = [];
-//     }
-//  return inquirer.prompt([
-        
-//     ])
-//     .then(projectData => {
-//         userData.projects.push(projectData);
-//         if (projectData.confirmAddProject) {
-//             return promptProject(userData);
-//         } else {
-//             return userData;
-//         }
-//     });
-// }
-
-
-
 // TODO: Create a function to write README file
-const writeFile = userData => {
+const writeFile = fileContent => {
     return new Promise ((resolve, reject) => {
         fs.writeFile('./dist/README.md', fileContent, err => {
             if (err) {
@@ -185,9 +158,8 @@ const writeFile = userData => {
     });
 };
 
-
-// TODO: Create a function to initialize app
 module.exports = fileContent => {
+    // const fileData = { username, githuburl, email, license, description, installation, usage, tests };
     return`
         # ${title}
         ${license}
@@ -213,19 +185,23 @@ module.exports = fileContent => {
         ${license}
 
         ## Contributing
-        ${contributing}
+        [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
 
         ## Tests
         ${tests}
 
         ## Questions
-        My Github username is [${username}](https://github.com/sumwillrodt).
+        My Github username is [${username}](${githuburl}).
         For any questions, reach out to me at [${email}](mailto:87799429+sumwillrodt@users.noreply.github.com).
     `
 };
 
+// TODO: Create a function to initialize app
+
+
+
 // Function call to initialize app
-// init();
 promptUser()
     .then(fileData => {
         return writeFile(fileData);
