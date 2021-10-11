@@ -1,9 +1,10 @@
 // TODO: Include packages needed for this application
-const inquirer = require('inquirer');
 const fs = require('fs');
+const inquirer = require('inquirer');
+
 
 // TODO: Create an array of questions for user input
-const userQuestions = () => {
+const promptUser = () => {
     return inquirer.prompt([    
         {
             type: 'input',
@@ -63,10 +64,10 @@ const userQuestions = () => {
             message: 'What is the title of your project?',
             validate: titleInput => {
                 if (titleInput) {
-                  return true;
+                return true;
                 } else {
-                  console.log('Please enter the title of your project!');
-                  return false;
+                console.log('Please enter the title of your project!');
+                return false;
                 }
             }
         },
@@ -76,10 +77,10 @@ const userQuestions = () => {
             message: 'Describe your project.',
             validate: descriptionInput => {
                 if (descriptionInput) {
-                  return true;
+                return true;
                 } else {
-                  console.log('Please enter a description of you project!');
-                  return false;
+                console.log('Please enter a description of you project!');
+                return false;
                 }
             }
         },
@@ -89,10 +90,10 @@ const userQuestions = () => {
             message: 'What are the steps required to install your project?',
             validate: installationInput => {
                 if (installationInput) {
-                  return true;
+                return true;
                 } else {
-                  console.log('Please provide instructions on how to get the development environment running.');
-                  return false;
+                console.log('Please provide instructions on how to get the development environment running.');
+                return false;
                 }
             }
         },
@@ -121,9 +122,9 @@ const userQuestions = () => {
             message: 'Please enter the relative filepath.',
             when: ({ usageImageInput }) => {
                 if (usageImageInput) {
-                  return true;
+                return true;
                 } else {
-                  return false;
+                return false;
                 }
             }
         },
@@ -133,26 +134,63 @@ const userQuestions = () => {
             message: 'Please provide a brief description of the image.',
             when: ({ imageDescInput }) => {
                 if (imageDescInput) {
-                  return true;
+                return true;
                 } else {
-                  return false;
+                return false;
                 }
             }
         },
         {
-            type: 'choices',
+            type: 'list',
             name: 'license',
             message: 'Please choose the license that the application is covered under.',
             choices: ['MIT', 'GPL', 'Apache', 'Ms-PL', 'BSD', 'Other']
-        }    
+        }
     ]);
 };
 
+// const promptProject = userData => {
+//     if (!userData.project) {
+//         userData.project = [];
+//     }
+//  return inquirer.prompt([
+        
+//     ])
+//     .then(projectData => {
+//         userData.projects.push(projectData);
+//         if (projectData.confirmAddProject) {
+//             return promptProject(userData);
+//         } else {
+//             return userData;
+//         }
+//     });
+// }
+
+
 
 // TODO: Create a function to write README file
-const generateReadme = data => {
+const writeFile = userData => {
+    return new Promise ((resolve, reject) => {
+        fs.writeFile('./dist/README.md', fileContent, err => {
+            if (err) {
+                reject(err);
+                return;
+            }
+
+            resolve({
+                ok: true,
+                message: 'File created!'
+            })
+        });
+    });
+};
+
+
+// TODO: Create a function to initialize app
+module.exports = fileContent => {
     return`
         # ${title}
+        ${license}
         
         ## Description
         ${description}
@@ -183,18 +221,15 @@ const generateReadme = data => {
         ## Questions
         My Github username is [${username}](https://github.com/sumwillrodt).
         For any questions, reach out to me at [${email}](mailto:87799429+sumwillrodt@users.noreply.github.com).
-
-        ${questions}
-
     `
 };
 
-function writeToFile(fileName, data) {}
-
-
-
-// TODO: Create a function to initialize app
-function init() {}
-
 // Function call to initialize app
-init();
+// init();
+promptUser()
+    .then(fileData => {
+        return writeFile(fileData);
+    })
+    .catch(err => {
+        console.log(err);
+      });
