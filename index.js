@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown')
 
 
 // TODO: Create an array of questions for user input
@@ -15,19 +16,6 @@ const promptUser = () => {
                 return true;
                 } else {
                 console.log('Please enter your Github Username!');
-                return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'githuburl',
-            message: 'Enter the url to your Github profile.',
-            validate: githubInput => {
-                if (githubInput) {
-                return true;
-                } else {
-                console.log('Please enter the url to your Github profile!');
                 return false;
                 }
             }
@@ -142,60 +130,16 @@ const promptUser = () => {
 };
 
 // TODO: Create a function to write README file
-const writeFile = fileContent => {
-    return new Promise ((resolve, reject) => {
-        fs.writeFile('./dist/README.md', fileContent, err => {
-            if (err) {
-                reject(err);
-                return;
-            }
-
-            resolve({
-                ok: true,
-                message: 'File created!'
-            })
-        });
+const writeFile = (filedata) => {
+    fs.writeFile('./dist/README.md', generateMarkdown(filedata), err => {
+        if (err) {
+            reject(err);
+            return;
+        }
     });
 };
 
-module.exports = fileContent => {
-    // const fileData = { username, githuburl, email, license, description, installation, usage, tests };
-    return`
-        # ${title}
-        ${license}
-        
-        ## Description
-        ${description}
 
-        ## Table of Contents
-        -[Installation](##-installation)
-        -[Usage](##-usage)
-        -[License](##-license)
-        -[Contributions](##-contributions)
-        -[Tests](##-tests)
-        -[Questions](##-questions)
-
-        ## Installation
-        ${installation}
-
-        ## Usage
-        ${usage}
-
-        ## License
-        ${license}
-
-        ## Contributing
-        [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
-
-
-        ## Tests
-        ${tests}
-
-        ## Questions
-        My Github username is [${username}](${githuburl}).
-        For any questions, reach out to me at [${email}](mailto:87799429+sumwillrodt@users.noreply.github.com).
-    `
-};
 
 // TODO: Create a function to initialize app
 
@@ -203,8 +147,9 @@ module.exports = fileContent => {
 
 // Function call to initialize app
 promptUser()
-    .then(fileData => {
-        return writeFile(fileData);
+    .then(response => {
+        return writeFile(response);
+        // console.log(fileData)
     })
     .catch(err => {
         console.log(err);
