@@ -48,7 +48,7 @@ ${data.tests}
 
 ## Questions
 My Github username is [${data.username}](https://github.com/${data.username}/).
-For any questions, reach out to me at [${data.email}](mailto:87799429+sumwillrodt@users.noreply.github.com).
+For any questions, feel free to (reach out to me)[mailto:${data.email}].
 `
 };
 

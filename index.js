@@ -139,12 +139,6 @@ const writeFile = (filedata) => {
     });
 };
 
-
-
-// TODO: Create a function to initialize app
-
-
-
 // Function call to initialize app
 promptUser()
     .then(response => {
