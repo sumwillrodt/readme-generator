@@ -4,7 +4,7 @@
 Create an application that generates a professional README.md
 
 ## Table of Contents
--[Installation](##-installation)
+*[Installation](##-installation)
 -[Usage](##-usage)
 -[License](##-license)
 -[Contributions](##-contributions)
@@ -13,13 +13,15 @@ Create an application that generates a professional README.md
 
 ## Installation
 To install:
-1. 
+1. Clone repo
+2. Install inquirer
+3. Install ds
 
 ## Usage
-[How to Use]()
+[How to Use](https://drive.google.com/file/d/10e0czuVo0TxoWUV9RuF89Dy_rtGY0L8S/view?usp=sharing)
 
 ## License
-NA
+MIT
 
 ## Contributing
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)

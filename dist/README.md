@@ -2,7 +2,7 @@
 MIT
 
 ## Description
-An application to generate a high-quality README file from a user's input using the Inquirer.
+An application that generates a high-quality readme file from prompted user-input
 
 ## Table of Contents
 -[Installation](##-installation)
@@ -13,10 +13,10 @@ An application to generate a high-quality README file from a user's input using 
 -[Questions](##-questions)
 
 ## Installation
-Download/Clone from GitHub repo.
+Download/clone github repo
 
 ## Usage
-Clone repo. Install inquirer. Install fs.
+Clone repo. Install inquirer and fs.
 
 ## License
 MIT
@@ -30,4 +30,4 @@ MIT
 
 ## Questions
 My Github username is [sumwillrodt](https://github.com/sumwillrodt/).
-For any questions, reach out to me at [sumwillrodt@gmail.com](mailto:87799429+sumwillrodt@users.noreply.github.com).
+For any questions, feel free to (reach out to me)[mailto:sumwillrodt@gmail.com].
